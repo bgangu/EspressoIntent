@@ -27,6 +27,7 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtras;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasPackage;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.isInternal;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
@@ -42,17 +43,18 @@ public class ExampleInstrumentedTest {
     static final String EMAIL_SUBJECT = "Test Subject";
     static final String EMAIL_BODY = "Test body";
     static final String PACKAGE_ID = "com.google.android.gm";
+    static final String URL ="https://github.com/bgangu/EspressoIntent";
 
     @Rule
     public IntentsTestRule<MainActivity> mActivityRule = new IntentsTestRule<>(
             MainActivity.class);
 
-//    @Before
-//    public void stubAllExternalIntents() {
-//        // By default Espresso Intents does not stub any Intents. Stubbing needs to be setup before
-//        // every test run. In this case all external Intents will be blocked.
-//        intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
-//    }
+    @Before
+    public void stubAllExternalIntents() {
+        // By default Espresso Intents does not stub any Intents. Stubbing needs to be setup before
+        // every test run. In this case all external Intents will be blocked.
+        intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
+    }
 
     @Test
     public void clickEmailButton_verifyEmailIntent(){
@@ -62,8 +64,8 @@ public class ExampleInstrumentedTest {
                 hasAction(Intent.ACTION_SENDTO),
                 hasExtras(BundleMatchers.hasValue(EMAIL_SUBJECT)),
                 hasExtras(BundleMatchers.hasValue(EMAIL_BODY)),
-                hasExtras(BundleMatchers.hasValue(PACKAGE_ID))
+                hasExtras(BundleMatchers.hasValue(PACKAGE_ID)),
+                toPackage(PACKAGE_ID)
         ));
-
     }
 }

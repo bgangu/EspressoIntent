@@ -29,7 +29,7 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        android:layout_margin="48dp"-->
 <!--        android:id="@+id/update_textview"-->
-<!--        android:text="Update Text"-->
-<!--        android:onClick="actionEmail"/>-->
+<!--        android:text="Upload file"-->
+<!--        android:onClick="updateURL"/>-->
 
 </LinearLayout>
